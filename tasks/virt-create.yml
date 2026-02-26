@@ -1,7 +1,7 @@
 ---
 # Define the VM, unless it doesn't yet exist and is set to "undefined"
 - name: Define VM
-  shell: >
+  ansible.builtin.shell: >
     set -o pipefail && virt-install
     --import
     --connect {{ hostvars[kvmhost].virt_infra_host_libvirt_url | default(virt_infra_host_libvirt_url) }}
@@ -92,7 +92,7 @@
 # Wait for network so we can get the IP to log in
 # Do this for all VMs, in case they already existed and IP has changed
 - name: Get IP address of VM
-  shell: >
+  ansible.builtin.shell: >
     set -o pipefail ;
     virsh
     --connect {{ hostvars[kvmhost].virt_infra_host_libvirt_url | default(virt_infra_host_libvirt_url) }}

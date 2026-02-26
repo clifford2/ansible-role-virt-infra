@@ -18,7 +18,7 @@
     - hostvars[inventory_hostname].virt_infra_ssh_keys is not defined
 
 - name: Read public SSH keys on KVM host if none specified
-  command: "cat {{ item.path }}"
+  ansible.builtin.command: "cat {{ item.path }}"
   register: result_ssh_keys
   with_items: "{{ result_ssh_key_list.files }}"
   changed_when: false
@@ -70,7 +70,7 @@
 # as it's an achronym which can't be resolved to country/city for cloud-init
 # Due to Ubuntu Bionic, can't use 'timedatectl -p Timezone --value show'
 - name: Get timezone from KVM host for cloud-init
-  shell: |
+  ansible.builtin.shell: |
     set -o pipefail
     timedatectl |grep 'Time zone:' |awk '{ print $3 }'
   register: result_timezone

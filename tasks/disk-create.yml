@@ -151,7 +151,7 @@
   delegate_to: "{{ kvmhost }}"
 
 - name: Make cloud-init iso for guest
-  shell: >
+  ansible.builtin.shell: >
     {{ hostvars[kvmhost].virt_infra_mkiso_cmd | default(virt_infra_mkiso_cmd) }} -J -l -R -V "cidata" -iso-level 4
     -o {{ hostvars[kvmhost].virt_infra_host_image_path | default(virt_infra_host_image_path) }}/{{ inventory_hostname }}-cloudinit.iso
     {{ result_tempdir.path }}/user-data

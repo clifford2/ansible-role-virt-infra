@@ -102,7 +102,7 @@
       changed_when: true
 
     - name: "KVM host only: Test for required programs"
-      shell: 'hash {{ item }} 2>/dev/null'
+      ansible.builtin.shell: 'hash {{ item }} 2>/dev/null'
       become: true
       register: result_deps
       with_items: "{{ virt_infra_host_deps }}"
@@ -295,7 +295,7 @@
       become: true
 
     - name: "KVM host only: Find the path for virtualbmc"
-      command: "which vbmc"
+      ansible.builtin.command: "which vbmc"
       register: result_vbmc_path
       when:
         - inventory_hostname in groups['kvmhost']
@@ -399,7 +399,7 @@
       changed_when: true
 
     - name: "KVM host only: Get virtual BMC list"
-      shell: vbmc list -f json --noindent |sed 's/Domain name/Name/g'
+      ansible.builtin.shell: vbmc list -f json --noindent |sed 's/Domain name/Name/g'
       register: result_vbmc_list
       become: true
       args:
@@ -420,7 +420,7 @@
       with_items: "{{ result_deps.results }}"
 
     - name: "KVM host only: Get list of supported os-variants"
-      command: osinfo-query os
+      ansible.builtin.command: osinfo-query os
       register: result_osinfo
       when:
         - inventory_hostname in groups['kvmhost']
