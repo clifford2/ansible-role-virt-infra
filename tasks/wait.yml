@@ -31,7 +31,7 @@
     - virt_infra_state is defined and virt_infra_state == "running"
 
 - name: Add guest fingerprint to SSH known_hosts
-  blockinfile:
+  ansible.builtin.blockinfile:
     create: true
     mode: 0600
     state: present
